@@ -18,22 +18,24 @@ train_data=train.values;
 #train_features=train_data[:,1:];
 #train_labels=train_data[:,0:1];
 #print train_labels
+test=pd.read_csv('data/test.csv')
+print test ;
 
 from sklearn.ensemble import RandomForestClassifier;
 
 clf=RandomForestClassifier(n_estimators = 1000);
-
+#print train_data[0:,0];
 clf.fit(train_data[0:,1:], train_data[0:,0]);
 
 test=pd.read_csv('data/test.csv')
-
+print test ;
 test_data=test.values;
 output=clf.predict(test_data)
-
-res=np.c_[test_data[:,0].astype(int),output.astype(int)];
+#print output;
+res=np.c_[output.astype(int)];
 #print res
 df_res=pd.DataFrame(res[:,0],columns=["Label"]);
 df_res.index+=1;
-print df_res
+#print df_res
 df_res.to_csv('results/chardata.csv',index_label="ImageId")
 print "done";
